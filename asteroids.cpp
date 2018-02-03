@@ -122,6 +122,7 @@ public:
 	Bullet *barr;
 	int nasteroids;
 	int nbullets;
+	int dasteroids;
 	struct timespec bulletTimer;
 	struct timespec mouseThrustTimer;
 	bool mouseThrustOn;
@@ -502,6 +503,7 @@ void deleteAsteroid(Game *g, Asteroid *node)
 		}
 	}
 	delete node;
+	g->dasteroids++;
 	node = NULL;
 }
 
@@ -746,7 +748,7 @@ void render()
 	ggprint8b(&r, 16, 0x00ff0000, "3350 - Asteroids");
 	ggprint8b(&r, 16, 0x00ffff00, "n bullets: %i", g.nbullets);
 	ggprint8b(&r, 16, 0x00ffff00, "n asteroids: %i", g.nasteroids);
-	ggprint8b(&r, 16, 0x00ffff00, "n asteroids destroyed: ");
+	ggprint8b(&r, 16, 0x00ffff00, "n asteroids destroyed: %i", g.dasteroids);
 	//
 	//-------------
 	//Draw the ship
@@ -806,6 +808,7 @@ void render()
 				}
 		
 			glEnd();
+
 			glPopMatrix();
 			glColor3f(1.0f, 0.0f, 0.0f);
 			glBegin(GL_POINTS);
